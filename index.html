@@ -115,21 +115,55 @@
         </ul>
       </section>
 
-      <section>
+      <section id="regulatory-context">
         <h3>Regulatory context</h3>
         <p>
           The
           <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
             >EU AI Act Article 50</a
           >
-          (transparency obligations applying from 2 August 2026, with a
-          transitional period to 2 December 2026 for generative AI systems
-          already on the EU market) requires that
-          AI-generated text content be
-          "marked in a machine-readable format and detectable as artificially
-          generated or manipulated." Major platforms already require AI
-          disclosure in their policies. A standard mechanism at the HTML layer
-          can serve both regulatory compliance and voluntary transparency.
+          distinguishes providers' obligations to mark AI-generated outputs
+          in a machine-readable format and enable their detection (paragraph 2)
+          from deployers' obligations to disclose AI-generated or manipulated
+          text published to inform the public on matters of public interest
+          (paragraph 4). These obligations have different exceptions.
+        </p>
+        <p>
+          Article 50(4) provides an exception to the text-disclosure obligation
+          where content undergoes human review or editorial control and a
+          natural or legal person holds editorial responsibility for its
+          publication. The article itself does not specify reviewer competence.
+          The Commission's interpretation, explained in its
+          <a
+            href="https://digital-strategy.ec.europa.eu/en/faqs/transparency-obligations-under-article-50-ai-act"
+            >Article 50 guidance FAQ</a
+          >, describes substantive examination by people with relevant
+          subject-matter knowledge and professional judgment. It excludes
+          superficial checks such as spelling or grammatical correction.
+          These are conditions for an exception to disclosure, not a general
+          requirement that all AI-generated text receive expert review.
+        </p>
+        <p>
+          The <code>ai-assisted</code> value asserts that human review occurred
+          before publication. It does not establish the reviewer's competence,
+          the substance of the review, or editorial responsibility, and does
+          not by itself establish eligibility for the Article 50(4) exception.
+          This specification describes AI involvement and human review; its use
+          alone does not establish regulatory compliance.
+        </p>
+        <p>
+          Where reader-facing disclosure is required, Article 50(5) calls for
+          clear, distinguishable and accessible information by the first
+          interaction or exposure. HTML disclosure metadata can support that
+          presentation, but does not itself provide a reader-facing notice.
+          This specification does not prescribe a rendering or labeling design.
+        </p>
+        <p>
+          Article 50 applies from 2 August 2026. As explained in the
+          Commission guidance linked above, the transition to 2 December 2026
+          applies only to the paragraph 2 marking and detection obligation for
+          AI systems placed on the market before 2 August 2026; it does not
+          postpone deployers' paragraph 4 disclosure obligation.
         </p>
       </section>
 
@@ -144,6 +178,12 @@
             Provide a <strong>machine-readable signal</strong> usable by
             browsers, search engines, accessibility tools, and research
             crawlers.
+          </li>
+          <li>
+            Make classification depend on <strong>two clear questions</strong>
+            authors can answer from knowledge of how the content was produced:
+            was generative AI involved, and did a human review the resulting
+            content before publication?
           </li>
           <li>
             <strong>Align with existing vocabularies</strong> — specifically the
@@ -274,10 +314,10 @@
                 <dfn><code>ai-assisted</code></dfn>
               </td>
               <td>
-                AI was involved in producing the content, with human authorship
-                and/or human review. This spans the full range from light AI
-                editing of human-written text to AI-drafted text refined or
-                reviewed by a human.
+                AI was involved in producing the content, and a human reviewed
+                it before publication. This spans the full range from light AI
+                editing of human-written text to AI-drafted text, in each case
+                reviewed by a human before publication.
               </td>
               <td><code>ai-modified</code> / <code>ai-originated</code></td>
               <td>
@@ -290,24 +330,65 @@
                 <dfn><code>ai-autonomous</code></dfn>
               </td>
               <td>
-                Content published without human involvement or review (no
-                per-instance human prompting or oversight).
+                AI was involved in producing the content, and it was published
+                without human review, regardless of whether a human prompted
+                its generation.
               </td>
               <td><code>machine-generated</code></td>
               <td><code>trainedAlgorithmicMedia</code></td>
             </tr>
           </tbody>
         </table>
+        <p>
+          To choose a <a>disclosure value</a> for the content being disclosed,
+          answer these two questions in order:
+        </p>
+        <ol>
+          <li>
+            <strong>Was generative AI involved in producing the content?</strong>
+            If no, use <code>human-only</code>. If yes, continue to the second
+            question. See <a href="#boundary-guidance">Boundary guidance</a>
+            for what counts as AI involvement.
+          </li>
+          <li>
+            <strong>Did a human review the resulting content before
+            publication?</strong> If yes, use <code>ai-assisted</code>.
+            If no, use <code>ai-autonomous</code>.
+          </li>
+        </ol>
+        <p>
+          The value <code>ai-assisted</code> is a positive assertion that a
+          human reviewed the content before publication. Authors MUST use
+          <code>ai-autonomous</code> when disclosing AI-involved content
+          published without human review. Human authorship of the original
+          text or of a prompt does not, by itself, constitute review of the
+          resulting AI-generated or AI-edited text.
+        </p>
+        <p class="note">
+          An assertion of human review does not by itself establish eligibility
+          for a legal disclosure exception. See
+          <a href="#regulatory-context">Regulatory context</a> for the
+          relationship to EU AI Act Article 50.
+        </p>
         <p class="note">
           A single <code>ai-assisted</code> value deliberately covers the full
           spectrum of human-plus-AI collaboration. The group considered a finer
           split between "assisted" (human-authored, AI-edited) and "generated"
           (AI-authored, human-reviewed) but found the boundary impractical to
           apply: with multiple contributors it forces unanswerable questions
-          about who counts as the "first author." Authors who wish to indicate
-          the rough proportion of AI authorship MAY use the optional
-          <a href="#ai-assisted-percent"><code>ai-assisted-percent</code></a>
-          attribute.
+          about who counts as the "first author."
+        </p>
+        <p class="note">
+          The group also considered a percentage of AI authorship but decided
+          against defining one. A consistent quantitative measure would require
+          agreed definitions of both the numerator (what counts as AI-authored)
+          and the denominator (the units and extent of content being measured).
+          Resolving those questions across collaborative writing and editing
+          workflows is outside the current scope. This specification therefore
+          does not define a percentage attribute. See
+          <a href="https://github.com/w3c-cg/ai-content-disclosure/issues/25"
+            >issue #25</a
+          > for the proposal.
         </p>
         <p>
           If the <code>ai-disclosure</code> attribute is present but its value
@@ -363,8 +444,9 @@
           (programmatic, out of scope).
         </p>
         <p>
-          <strong><code>ai-assisted</code></strong> (any human-plus-AI
-          collaboration, from light editing to AI drafting with human review):
+          <strong><code>ai-assisted</code></strong> (AI-involved content
+          reviewed by a human before publication, from light editing to AI
+          drafting; all examples below require that review):
         </p>
         <ul>
           <li>LLM-based grammar and style tools (e.g., Grammarly AI)</li>
@@ -381,11 +463,12 @@
           </li>
         </ul>
         <p>
-          <strong><code>ai-autonomous</code></strong
-          >:
+          <strong><code>ai-autonomous</code></strong> (AI-involved content
+          published without human review):
         </p>
         <ul>
-          <li>Agent-generated content without per-instance human prompting</li>
+          <li>AI-generated responses to human prompts published unread</li>
+          <li>Agent-generated content published without human review</li>
           <li>
             Automated reporting systems (weather, sports scores, financial
             summaries)
@@ -525,6 +608,13 @@
           to generate the content (e.g.,
           <code>"/ai-methodology#summary"</code>).
         </p>
+        <p class="note">
+          This attribute is optional. When provided, the URL is expected to
+          resolve to a resource containing prompt or methodology information.
+          This specification does not prescribe that resource's format, schema,
+          or required fields. It does not require publication of the exact
+          prompt, model parameters, source materials, or evidence of review.
+        </p>
         <p>
           The prompt text itself MUST NOT be embedded in the HTML. This
           attribute links to an external resource, giving authors control over
@@ -533,37 +623,6 @@
         <p>
           This attribute SHOULD NOT be present when
           <code>ai-disclosure="human-only"</code>.
-        </p>
-      </section>
-
-      <section id="ai-assisted-percent">
-        <h3>
-          <code><dfn data-dfn-type="element-attr">ai-assisted-percent</dfn></code>
-        </h3>
-        <p class="note">
-          This attribute is a proposal under discussion and is not yet
-          finalized. See
-          <a href="https://github.com/w3c-cg/ai-content-disclosure/issues"
-            >the issue tracker</a
-          >
-          for the current state of the discussion.
-        </p>
-        <p>
-          An integer from <code>0</code> to <code>100</code> indicating the
-          approximate percentage of the content that was authored by AI. It is
-          valid only when the applicable <a>disclosure value</a> is
-          <code>ai-assisted</code>; user agents MUST ignore it otherwise.
-        </p>
-        <p>
-          This attribute recovers some of the granularity that the single
-          <code>ai-assisted</code> value intentionally collapses, without
-          requiring authors to choose between hard-to-distinguish categories.
-          The figure is necessarily an estimate; this specification does not
-          define a measurement procedure.
-        </p>
-        <p>
-          If the value is not an integer in the range 0–100, user agents MUST
-          ignore it and behave as if the attribute were absent.
         </p>
       </section>
     </section>
@@ -625,7 +684,8 @@
         <h3>Mixed-content news page</h3>
         <p>
           A newsroom publishes an investigative piece with a human-written
-          article and an AI-written summary. Each region declares its own
+          article and an AI-written summary reviewed by a human before
+          publication. Each region declares its own
           <a>disclosure value</a>, so no <a>page-level default</a> is needed.
           Elements outside these regions have an "unknown" disclosure status:
         </p>
@@ -635,7 +695,7 @@
   &lt;p&gt;After six months of records review...&lt;/p&gt;
 &lt;/article&gt;
 
-&lt;aside ai-disclosure="ai-assisted" ai-assisted-percent="100"
+&lt;aside ai-disclosure="ai-assisted"
        ai-model="gpt-4o" ai-provider="OpenAI"&gt;
   &lt;h3&gt;Key Takeaways (AI-Generated)&lt;/h3&gt;
   &lt;ul&gt;&lt;li&gt;$4.2M discrepancy found...&lt;/li&gt;&lt;/ul&gt;
@@ -647,7 +707,8 @@
         <h3>AI-edited blog post</h3>
         <p>
           A blogger writes a post and uses an LLM for grammar, style, and
-          clarity improvements:
+          clarity improvements, then reviews the edited text before
+          publication:
         </p>
         <pre class="example html">
 &lt;meta name="ai-disclosure" content="ai-assisted"&gt;
@@ -663,8 +724,8 @@
       <section>
         <h3>Automated weather feed</h3>
         <p>
-          An automated system generates weather reports without per-instance
-          human oversight:
+          An automated system generates and publishes weather reports without
+          human review:
         </p>
         <pre class="example html">
 &lt;meta name="ai-disclosure" content="ai-autonomous"&gt;
@@ -781,14 +842,34 @@
       <section>
         <h3>Schema.org / JSON-LD</h3>
         <p>
-          For search engine discoverability, the same information can be
-          expressed as structured data using a proposed
-          <code>aiDisclosure</code>
-          property (see
+          <a href="https://www.w3.org/TR/json-ld11/">JSON-LD</a> is a useful
+          complementary approach to AI disclosure, particularly for publishers
+          already using structured data. HTML attributes associate disclosure
+          directly with elements in the document; JSON-LD can describe the
+          corresponding work and richer metadata such as contributors,
+          methodology, and evidence links. Authors can use both together,
+          keeping declarations about the same content consistent.
+        </p>
+        <p>
+          The group's charter covers coordination with related standards, but
+          defining a JSON-LD disclosure vocabulary or extending Schema.org is
+          outside the current scope of this specification. Those designs belong
+          with the respective communities. Related discussion is tracked in
           <a href="https://github.com/schemaorg/schemaorg/issues/3391"
             >schemaorg/schemaorg#3391</a
-          >):
+          > and
+          <a href="https://github.com/w3c-cg/ai-content-disclosure/issues/17"
+            >issue #17</a
+          >.
         </p>
+        <p class="note">
+          The following examples share possible designs for discussion. The
+          <code>aiDisclosure</code> property and its expanded fields are
+          illustrative; these examples do not define standardized Schema.org
+          terms or imply support by search engines or other consumers. JSON-LD
+          is not required for conformance to this specification.
+        </p>
+        <p>A simple form could associate a disclosure value with a work:</p>
         <pre class="example json">
 {
   "@context": "https://schema.org",
@@ -798,7 +879,7 @@
   "aiDisclosure": "ai-assisted"
 }
         </pre>
-        <p>An expanded form supports optional metadata:</p>
+        <p>An expanded form could carry additional metadata:</p>
         <pre class="example json">
 {
   "@context": "https://schema.org",
@@ -817,6 +898,28 @@
       </section>
 
       <section>
+        <h3>PROV-O and Dublin Core</h3>
+        <p>
+          <a href="https://www.w3.org/TR/prov-o/">W3C PROV-O</a> describes
+          provenance through entities, activities, agents, and their
+          relationships. The
+          <a
+            href="https://www.dublincore.org/specifications/dublin-core/dcmi-terms/"
+            >Dublin Core DCMI Metadata Terms</a
+          > include properties for creators, contributors, and provenance.
+          These vocabularies offer richer attribution and provenance expression
+          that can complement the disclosure values defined here.
+        </p>
+        <p>
+          Integrating these vocabularies is outside the current scope of this
+          specification. No mappings to PROV-O or Dublin Core, or additional
+          HTML attributes derived from them, are defined at this time. They are
+          linked as related work for authors who need more expressive metadata
+          alongside AI disclosure.
+        </p>
+      </section>
+
+      <section>
         <h3>C2PA</h3>
         <p>
           <a href="https://spec.c2pa.org/">C2PA</a> provides cryptographic,
@@ -826,6 +929,40 @@
           complementary: C2PA provides verified provenance for embedded media,
           while <code>ai-disclosure</code> provides advisory metadata for HTML
           text content.
+        </p>
+      </section>
+
+      <section>
+        <h3>Text watermarking</h3>
+        <p>
+          Text watermarking embeds a detectable statistical signal in generated
+          text. Research such as
+          <a href="https://arxiv.org/abs/2605.12456">TextSeal</a> explores
+          detecting and locating watermarked passages, including within
+          documents containing both human-written and AI-generated text.
+        </p>
+        <p>
+          As of September 2026, Anthropic is
+          <a
+            href="https://support.claude.com/en/articles/16266773-how-claude-marks-ai-generated-content"
+            >rolling out text watermarking in supported Claude models</a
+          >. Its
+          <a href="https://www.anthropic.com/news/claude-text-watermark"
+            >published explanation</a
+          > describes a method based on SynthID-Text, with an
+          Anthropic-specific key and a detection API in private preview.
+          The signal is embedded through word selection, rather than HTML
+          attributes or hidden characters.
+        </p>
+        <p>
+          Watermarking can provide evidence of AI involvement that complements
+          voluntary, author-declared disclosure. A detected watermark does not
+          establish whether a human reviewed the content, so it cannot by itself
+          distinguish <code>ai-assisted</code> from <code>ai-autonomous</code>.
+          Failure to detect a watermark does not establish
+          <code>human-only</code> provenance. This specification does not define
+          watermark generation, detection, or automatic conversion of detection
+          results into disclosure values.
         </p>
       </section>
 
