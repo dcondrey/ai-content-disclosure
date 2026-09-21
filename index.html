@@ -832,14 +832,34 @@
       <section>
         <h3>Schema.org / JSON-LD</h3>
         <p>
-          For search engine discoverability, the same information can be
-          expressed as structured data using a proposed
-          <code>aiDisclosure</code>
-          property (see
+          <a href="https://www.w3.org/TR/json-ld11/">JSON-LD</a> is a useful
+          complementary approach to AI disclosure, particularly for publishers
+          already using structured data. HTML attributes associate disclosure
+          directly with elements in the document; JSON-LD can describe the
+          corresponding work and richer metadata such as contributors,
+          methodology, and evidence links. Authors can use both together,
+          keeping declarations about the same content consistent.
+        </p>
+        <p>
+          The group's charter covers coordination with related standards, but
+          defining a JSON-LD disclosure vocabulary or extending Schema.org is
+          outside the current scope of this specification. Those designs belong
+          with the respective communities. Related discussion is tracked in
           <a href="https://github.com/schemaorg/schemaorg/issues/3391"
             >schemaorg/schemaorg#3391</a
-          >):
+          > and
+          <a href="https://github.com/w3c-cg/ai-content-disclosure/issues/17"
+            >issue #17</a
+          >.
         </p>
+        <p class="note">
+          The following examples share possible designs for discussion. The
+          <code>aiDisclosure</code> property and its expanded fields are
+          illustrative; these examples do not define standardized Schema.org
+          terms or imply support by search engines or other consumers. JSON-LD
+          is not required for conformance to this specification.
+        </p>
+        <p>A simple form could associate a disclosure value with a work:</p>
         <pre class="example json">
 {
   "@context": "https://schema.org",
@@ -849,7 +869,7 @@
   "aiDisclosure": "ai-assisted"
 }
         </pre>
-        <p>An expanded form supports optional metadata:</p>
+        <p>An expanded form could carry additional metadata:</p>
         <pre class="example json">
 {
   "@context": "https://schema.org",
