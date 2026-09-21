@@ -373,10 +373,19 @@
           split between "assisted" (human-authored, AI-edited) and "generated"
           (AI-authored, human-reviewed) but found the boundary impractical to
           apply: with multiple contributors it forces unanswerable questions
-          about who counts as the "first author." Authors who wish to indicate
-          the rough proportion of AI authorship MAY use the optional
-          <a href="#ai-assisted-percent"><code>ai-assisted-percent</code></a>
-          attribute.
+          about who counts as the "first author."
+        </p>
+        <p class="note">
+          The group also considered a percentage of AI authorship but decided
+          against defining one. A consistent quantitative measure would require
+          agreed definitions of both the numerator (what counts as AI-authored)
+          and the denominator (the units and extent of content being measured).
+          Resolving those questions across collaborative writing and editing
+          workflows is outside the current scope. This specification therefore
+          does not define a percentage attribute. See
+          <a href="https://github.com/w3c-cg/ai-content-disclosure/issues/25"
+            >issue #25</a
+          > for the proposal.
         </p>
         <p>
           If the <code>ai-disclosure</code> attribute is present but its value
@@ -606,37 +615,6 @@
           <code>ai-disclosure="human-only"</code>.
         </p>
       </section>
-
-      <section id="ai-assisted-percent">
-        <h3>
-          <code><dfn data-dfn-type="element-attr">ai-assisted-percent</dfn></code>
-        </h3>
-        <p class="note">
-          This attribute is a proposal under discussion and is not yet
-          finalized. See
-          <a href="https://github.com/w3c-cg/ai-content-disclosure/issues"
-            >the issue tracker</a
-          >
-          for the current state of the discussion.
-        </p>
-        <p>
-          An integer from <code>0</code> to <code>100</code> indicating the
-          approximate percentage of the content that was authored by AI. It is
-          valid only when the applicable <a>disclosure value</a> is
-          <code>ai-assisted</code>; user agents MUST ignore it otherwise.
-        </p>
-        <p>
-          This attribute recovers some of the granularity that the single
-          <code>ai-assisted</code> value intentionally collapses, without
-          requiring authors to choose between hard-to-distinguish categories.
-          The figure is necessarily an estimate; this specification does not
-          define a measurement procedure.
-        </p>
-        <p>
-          If the value is not an integer in the range 0–100, user agents MUST
-          ignore it and behave as if the attribute were absent.
-        </p>
-      </section>
     </section>
 
     <!-- ============================================================ -->
@@ -707,7 +685,7 @@
   &lt;p&gt;After six months of records review...&lt;/p&gt;
 &lt;/article&gt;
 
-&lt;aside ai-disclosure="ai-assisted" ai-assisted-percent="100"
+&lt;aside ai-disclosure="ai-assisted"
        ai-model="gpt-4o" ai-provider="OpenAI"&gt;
   &lt;h3&gt;Key Takeaways (AI-Generated)&lt;/h3&gt;
   &lt;ul&gt;&lt;li&gt;$4.2M discrepancy found...&lt;/li&gt;&lt;/ul&gt;

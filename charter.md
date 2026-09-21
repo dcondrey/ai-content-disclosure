@@ -22,7 +22,7 @@ The group intends to produce a Community Group Report suitable for adoption by a
 
 1. **HTML disclosure attributes.** A global `ai-disclosure` attribute on any HTML element, a `<meta name="ai-disclosure">` tag for page-level declaration, optional metadata attributes (model, provider, methodology URL), and rules for how values inherit from parent to child elements.
 
-2. **Disclosure vocabulary.** A set of values (such as `human-only`, `ai-assisted`, `ai-autonomous`) with boundary guidance on what falls into each category, plus optional refinements such as an `ai-assisted-percent` figure. The vocabulary should align with existing taxonomies (IETF, IPTC) where practical.
+2. **Disclosure vocabulary.** A set of values (such as `human-only`, `ai-assisted`, `ai-autonomous`) with boundary guidance on what falls into each category. The vocabulary should align with existing taxonomies (IETF, IPTC) where practical.
 
 3. **Cross-standard coordination.** How the HTML-level disclosure relates to the IETF `AI-Disclosure` HTTP response header, IPTC Digital Source Type vocabulary, Schema.org structured data, and C2PA cryptographic provenance. The layers should complement each other without duplicating work.
 
