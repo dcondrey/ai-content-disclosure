@@ -395,7 +395,7 @@
           <code>name="ai-disclosure"</code> sets the
           <a>page-level default</a> for the document. The
           <code>content</code> attribute MUST contain a valid
-          <a>disclosure value</a> or the value <code>mixed</code>.
+          <a>disclosure value</a>.
         </p>
         <pre class="example html">
 &lt;meta name="ai-disclosure" content="ai-assisted"&gt;
@@ -405,26 +405,6 @@
           <code>&lt;meta name="ai-disclosure"&gt;</code> element per document.
           If more than one is present, user agents MUST use the first one in
           document order and ignore the rest.
-        </p>
-      </section>
-
-      <section>
-        <h3>The <code>mixed</code> value</h3>
-        <p>
-          The value <dfn><code>mixed</code></dfn> is valid only on the
-          <code>&lt;meta name="ai-disclosure"&gt;</code> element, not on the
-          <code>ai-disclosure</code> attribute on other elements. It signals
-          that the page contains sections with different levels of AI
-          involvement and that consumers SHOULD inspect element-level
-          <code>ai-disclosure</code> attributes for detail.
-        </p>
-        <pre class="example html">
-&lt;meta name="ai-disclosure" content="mixed"&gt;
-        </pre>
-        <p>
-          When the meta value is <code>mixed</code>, elements without an
-          explicit <code>ai-disclosure</code> attribute are treated as
-          "unknown."
         </p>
       </section>
     </section>
@@ -454,7 +434,7 @@
           <li>
             Otherwise, if a
             <code>&lt;meta name="ai-disclosure"&gt;</code> element is present
-            with a value other than <code>mixed</code>, that value applies as
+            with a valid <a>disclosure value</a>, that value applies as
             the <a>page-level default</a>.
           </li>
           <li>Otherwise, the element's disclosure status is "unknown."</li>
@@ -630,11 +610,11 @@
         <h3>Mixed-content news page</h3>
         <p>
           A newsroom publishes an investigative piece with a human-written
-          article and an AI-written summary:
+          article and an AI-written summary. Each region declares its own
+          <a>disclosure value</a>, so no <a>page-level default</a> is needed.
+          Elements outside these regions have an "unknown" disclosure status:
         </p>
         <pre class="example html">
-&lt;meta name="ai-disclosure" content="mixed"&gt;
-
 &lt;article ai-disclosure="human-only"&gt;
   &lt;h1&gt;Exclusive: City Budget Shortfall&lt;/h1&gt;
   &lt;p&gt;After six months of records review...&lt;/p&gt;
