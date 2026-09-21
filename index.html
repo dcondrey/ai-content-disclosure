@@ -903,6 +903,40 @@
       </section>
 
       <section>
+        <h3>Text watermarking</h3>
+        <p>
+          Text watermarking embeds a detectable statistical signal in generated
+          text. Research such as
+          <a href="https://arxiv.org/abs/2605.12456">TextSeal</a> explores
+          detecting and locating watermarked passages, including within
+          documents containing both human-written and AI-generated text.
+        </p>
+        <p>
+          As of September 2026, Anthropic is
+          <a
+            href="https://support.claude.com/en/articles/16266773-how-claude-marks-ai-generated-content"
+            >rolling out text watermarking in supported Claude models</a
+          >. Its
+          <a href="https://www.anthropic.com/news/claude-text-watermark"
+            >published explanation</a
+          > describes a method based on SynthID-Text, with an
+          Anthropic-specific key and a detection API in private preview.
+          The signal is embedded through word selection, rather than HTML
+          attributes or hidden characters.
+        </p>
+        <p>
+          Watermarking can provide evidence of AI involvement that complements
+          voluntary, author-declared disclosure. A detected watermark does not
+          establish whether a human reviewed the content, so it cannot by itself
+          distinguish <code>ai-assisted</code> from <code>ai-autonomous</code>.
+          Failure to detect a watermark does not establish
+          <code>human-only</code> provenance. This specification does not define
+          watermark generation, detection, or automatic conversion of detection
+          results into disclosure values.
+        </p>
+      </section>
+
+      <section>
         <h3>IBM AI Attribution Toolkit</h3>
         <p>
           The
