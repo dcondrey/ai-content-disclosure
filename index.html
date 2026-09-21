@@ -115,21 +115,55 @@
         </ul>
       </section>
 
-      <section>
+      <section id="regulatory-context">
         <h3>Regulatory context</h3>
         <p>
           The
           <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
             >EU AI Act Article 50</a
           >
-          (transparency obligations applying from 2 August 2026, with a
-          transitional period to 2 December 2026 for generative AI systems
-          already on the EU market) requires that
-          AI-generated text content be
-          "marked in a machine-readable format and detectable as artificially
-          generated or manipulated." Major platforms already require AI
-          disclosure in their policies. A standard mechanism at the HTML layer
-          can serve both regulatory compliance and voluntary transparency.
+          distinguishes providers' obligations to mark AI-generated outputs
+          in a machine-readable format and enable their detection (paragraph 2)
+          from deployers' obligations to disclose AI-generated or manipulated
+          text published to inform the public on matters of public interest
+          (paragraph 4). These obligations have different exceptions.
+        </p>
+        <p>
+          Article 50(4) provides an exception to the text-disclosure obligation
+          where content undergoes human review or editorial control and a
+          natural or legal person holds editorial responsibility for its
+          publication. The article itself does not specify reviewer competence.
+          The Commission's interpretation, explained in its
+          <a
+            href="https://digital-strategy.ec.europa.eu/en/faqs/transparency-obligations-under-article-50-ai-act"
+            >Article 50 guidance FAQ</a
+          >, describes substantive examination by people with relevant
+          subject-matter knowledge and professional judgment. It excludes
+          superficial checks such as spelling or grammatical correction.
+          These are conditions for an exception to disclosure, not a general
+          requirement that all AI-generated text receive expert review.
+        </p>
+        <p>
+          The <code>ai-assisted</code> value asserts that human review occurred
+          before publication. It does not establish the reviewer's competence,
+          the substance of the review, or editorial responsibility, and does
+          not by itself establish eligibility for the Article 50(4) exception.
+          This specification describes AI involvement and human review; its use
+          alone does not establish regulatory compliance.
+        </p>
+        <p>
+          Where reader-facing disclosure is required, Article 50(5) calls for
+          clear, distinguishable and accessible information by the first
+          interaction or exposure. HTML disclosure metadata can support that
+          presentation, but does not itself provide a reader-facing notice.
+          This specification does not prescribe a rendering or labeling design.
+        </p>
+        <p>
+          Article 50 applies from 2 August 2026. As explained in the
+          Commission guidance linked above, the transition to 2 December 2026
+          applies only to the paragraph 2 marking and detection obligation for
+          AI systems placed on the market before 2 August 2026; it does not
+          postpone deployers' paragraph 4 disclosure obligation.
         </p>
       </section>
 
@@ -326,6 +360,12 @@
           published without human review. Human authorship of the original
           text or of a prompt does not, by itself, constitute review of the
           resulting AI-generated or AI-edited text.
+        </p>
+        <p class="note">
+          An assertion of human review does not by itself establish eligibility
+          for a legal disclosure exception. See
+          <a href="#regulatory-context">Regulatory context</a> for the
+          relationship to EU AI Act Article 50.
         </p>
         <p class="note">
           A single <code>ai-assisted</code> value deliberately covers the full
