@@ -146,6 +146,12 @@
             crawlers.
           </li>
           <li>
+            Make classification depend on <strong>two clear questions</strong>
+            authors can answer from knowledge of how the content was produced:
+            was generative AI involved, and did a human review the resulting
+            content before publication?
+          </li>
+          <li>
             <strong>Align with existing vocabularies</strong> — specifically the
             IETF <code>AI-Disclosure</code> header and
             <a href="https://cv.iptc.org/newscodes/digitalsourcetype/"
@@ -271,10 +277,10 @@
                 <dfn><code>ai-assisted</code></dfn>
               </td>
               <td>
-                AI was involved in producing the content, with human authorship
-                and/or human review. This spans the full range from light AI
-                editing of human-written text to AI-drafted text refined or
-                reviewed by a human.
+                AI was involved in producing the content, and a human reviewed
+                it before publication. This spans the full range from light AI
+                editing of human-written text to AI-drafted text, in each case
+                reviewed by a human before publication.
               </td>
               <td><code>ai-modified</code> / <code>ai-originated</code></td>
               <td>
@@ -287,14 +293,40 @@
                 <dfn><code>ai-autonomous</code></dfn>
               </td>
               <td>
-                Content published without human involvement or review (no
-                per-instance human prompting or oversight).
+                AI was involved in producing the content, and it was published
+                without human review, regardless of whether a human prompted
+                its generation.
               </td>
               <td><code>machine-generated</code></td>
               <td><code>trainedAlgorithmicMedia</code></td>
             </tr>
           </tbody>
         </table>
+        <p>
+          To choose a <a>disclosure value</a> for the content being disclosed,
+          answer these two questions in order:
+        </p>
+        <ol>
+          <li>
+            <strong>Was generative AI involved in producing the content?</strong>
+            If no, use <code>human-only</code>. If yes, continue to the second
+            question. See <a href="#boundary-guidance">Boundary guidance</a>
+            for what counts as AI involvement.
+          </li>
+          <li>
+            <strong>Did a human review the resulting content before
+            publication?</strong> If yes, use <code>ai-assisted</code>.
+            If no, use <code>ai-autonomous</code>.
+          </li>
+        </ol>
+        <p>
+          The value <code>ai-assisted</code> is a positive assertion that a
+          human reviewed the content before publication. Authors MUST use
+          <code>ai-autonomous</code> when disclosing AI-involved content
+          published without human review. Human authorship of the original
+          text or of a prompt does not, by itself, constitute review of the
+          resulting AI-generated or AI-edited text.
+        </p>
         <p class="note">
           A single <code>ai-assisted</code> value deliberately covers the full
           spectrum of human-plus-AI collaboration. The group considered a finer
@@ -360,8 +392,9 @@
           (programmatic, out of scope).
         </p>
         <p>
-          <strong><code>ai-assisted</code></strong> (any human-plus-AI
-          collaboration, from light editing to AI drafting with human review):
+          <strong><code>ai-assisted</code></strong> (AI-involved content
+          reviewed by a human before publication, from light editing to AI
+          drafting; all examples below require that review):
         </p>
         <ul>
           <li>LLM-based grammar and style tools (e.g., Grammarly AI)</li>
@@ -378,11 +411,12 @@
           </li>
         </ul>
         <p>
-          <strong><code>ai-autonomous</code></strong
-          >:
+          <strong><code>ai-autonomous</code></strong> (AI-involved content
+          published without human review):
         </p>
         <ul>
-          <li>Agent-generated content without per-instance human prompting</li>
+          <li>AI-generated responses to human prompts published unread</li>
+          <li>Agent-generated content published without human review</li>
           <li>
             Automated reporting systems (weather, sports scores, financial
             summaries)
@@ -622,7 +656,8 @@
         <h3>Mixed-content news page</h3>
         <p>
           A newsroom publishes an investigative piece with a human-written
-          article and an AI-written summary. Each region declares its own
+          article and an AI-written summary reviewed by a human before
+          publication. Each region declares its own
           <a>disclosure value</a>, so no <a>page-level default</a> is needed.
           Elements outside these regions have an "unknown" disclosure status:
         </p>
@@ -644,7 +679,8 @@
         <h3>AI-edited blog post</h3>
         <p>
           A blogger writes a post and uses an LLM for grammar, style, and
-          clarity improvements:
+          clarity improvements, then reviews the edited text before
+          publication:
         </p>
         <pre class="example html">
 &lt;meta name="ai-disclosure" content="ai-assisted"&gt;
@@ -660,8 +696,8 @@
       <section>
         <h3>Automated weather feed</h3>
         <p>
-          An automated system generates weather reports without per-instance
-          human oversight:
+          An automated system generates and publishes weather reports without
+          human review:
         </p>
         <pre class="example html">
 &lt;meta name="ai-disclosure" content="ai-autonomous"&gt;
